@@ -1,6 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:Studbud"
-             x:Class="Studbud.MainPage">
-</ContentPage>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:local="clr-namespace:Studbud"
+            xmlns:transactions="clr-namespace:Studbud.Transactions"
+            xmlns:statistics="clr-namespace:Studbud.Statistics"
+            xmlns:profile="clr-namespace:Studbud.Profile"
+            x:Class="Studbud.MainPage">
+    <transactions:TransactionsHomePage Title="Transactions" />
+    <statistics:StatisticsHomePage Title="Statistics" />
+    <profile:ProfileHomePage Title="Profile" />
+</TabbedPage>

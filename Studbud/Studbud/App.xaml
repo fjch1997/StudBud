@@ -2,8 +2,12 @@
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:data="clr-namespace:Studbud.Data"
+             xmlns:login="clr-namespace:Studbud.Login"
+             xmlns:http="clr-namespace:System.Net.Http;assembly=netstandard"
              x:Class="Studbud.App">
     <Application.Resources>
+        <http:HttpClient x:Key="HttpClient"></http:HttpClient>
         <data:TransactionStorageService x:Key="TransactionStorageService" />
+        <login:AuthenticationService x:Key="AuthenticationService" HttpClient="{StaticResource HttpClient}" />
     </Application.Resources>
 </Application>

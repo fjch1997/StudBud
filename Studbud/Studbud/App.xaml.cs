@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Studbud.Login;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -11,7 +12,24 @@ namespace Studbud
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            var authenticationService = (AuthenticationService)Resources[nameof(AuthenticationService)];
+            authenticationService.PropertyChanged += AuthenticationService_PropertyChanged;
+            if (authenticationService.LoggedIn)
+                MainPage = new MainPage();
+            else
+                MainPage = new LoginPage();
+        }
+
+        private void AuthenticationService_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            var authenticationService = (AuthenticationService)sender;
+            if (e.PropertyName == nameof(AuthenticationService.LoggedIn))
+            {
+                if (authenticationService.LoggedIn)
+                    MainPage = new MainPage();
+                else
+                    MainPage = new LoginPage();
+            }
         }
 
         protected override void OnStart()
