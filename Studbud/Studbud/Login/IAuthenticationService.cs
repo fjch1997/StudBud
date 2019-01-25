@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Studbud.Login
 {
-    interface IAuthenticationService : INotifyPropertyChanged
+    public interface IAuthenticationService : INotifyPropertyChanged
     {
         bool LoggedIn { get; }
         /// <summary>

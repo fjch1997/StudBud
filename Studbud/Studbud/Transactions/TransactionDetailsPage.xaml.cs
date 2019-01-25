@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace Studbud.Profile
+namespace Studbud.Transactions
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class ProfileHomePage : ContentPage
+	public partial class TransactionDetailsPage : ContentPage
 	{
-		public ProfileHomePage ()
+		public TransactionDetailsPage ()
 		{
 			InitializeComponent ();
 		}

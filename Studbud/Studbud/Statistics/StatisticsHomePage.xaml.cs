@@ -10,8 +10,8 @@ using Xamarin.Forms.Xaml;
 namespace Studbud.Statistics
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class StatisticsHomePage : NavigationPage
-    {
+	public partial class StatisticsHomePage : ContentPage
+	{
 		public StatisticsHomePage ()
 		{
 			InitializeComponent ();

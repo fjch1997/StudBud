@@ -10,8 +10,8 @@ using Xamarin.Forms.Xaml;
 namespace Studbud.Transactions
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class TransactionsHomePage : NavigationPage
-    {
+	public partial class TransactionsHomePage : ContentPage
+	{
 		public TransactionsHomePage ()
 		{
 			InitializeComponent ();

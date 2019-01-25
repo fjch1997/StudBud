@@ -8,13 +8,19 @@ using System.Threading.Tasks;
 
 namespace Studbud.Login
 {
-    public class AuthenticationService : IAuthenticationService
+    public class AuthenticationService : IAuthenticationService, ISupportInitialize
     {
         /// <summary>
         /// An injected HttpClient to handle all HTTP calls in order to facilitate Unit Test.
         /// Read more about this technique by searching "Unit Test HttpClient".
         /// </summary>
         public HttpClient HttpClient { get; set; }
+        public void BeginInit() { }
+
+        public void EndInit()
+        {
+            if (HttpClient == null) throw new ArgumentNullException(nameof(HttpClient));
+        }
 
         public bool LoggedIn { get => loggedIn; set { loggedIn = value; OnPropertyChanged(); } }
         private bool loggedIn;

@@ -17,7 +17,7 @@ namespace Studbud.Data
             // Run a background task to refresh transactions from transaction providers.
             Task.Run(async () =>
             {
-                // ...
+                // TODO
 
                 await Task.Delay(TimeSpan.FromMinutes(5));
             });
@@ -26,7 +26,23 @@ namespace Studbud.Data
         {
             throw new NotImplementedException();
         }
+        public void AddTransactionProvider(ITransactionProvider transactionProvider)
+        {
+            throw new NotImplementedException();
+        }
+        public IEnumerable<ITransactionProvider> GetTransactionProviders()
+        {
+            throw new NotImplementedException();
+        }
         public IEnumerable<Transaction> GetTransactions(DateTime startTime, DateTime endTime)
+        {
+            throw new NotImplementedException();
+        }
+        public void RemoveTransaction(Transaction transaction)
+        {
+            throw new NotImplementedException();
+        }
+        public void RemoveTransactionProvider(ITransactionProvider transactionProvider)
         {
             throw new NotImplementedException();
         }
