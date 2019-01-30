@@ -13,7 +13,6 @@ namespace Studbud
         public void EndInit()
         {
             if (NavigationPage == null) throw new ArgumentNullException(nameof(NavigationPage));
-
         }
 
         public Task<Page> PopAsync() => NavigationPage.PopAsync();

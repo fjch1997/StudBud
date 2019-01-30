@@ -5,12 +5,13 @@
              xmlns:login="clr-namespace:Studbud.Login"
              xmlns:http="clr-namespace:System.Net.Http;assembly=netstandard"
              xmlns:profile="clr-namespace:Studbud.Profile"
+             xmlns:studbud="clr-namespace:Studbud"
              x:Class="Studbud.App">
-    <Application.Resources>
-        <http:HttpClient x:Key="HttpClient" x:Name="HttpClient"></http:HttpClient>
-        <data:TransactionStorageService x:Key="TransactionStorageService"/>
-        <login:AuthenticationService x:Key="AuthenticationService" HttpClient="{StaticResource HttpClient}"/>
-        <data:DataSynchronizationService x:Key="DataSynchronizationService" HttpClient="{StaticResource HttpClient}" AuthenticationService="{StaticResource AuthenticationService}"/>
-        <profile:PreferencesService x:Key="PreferencesService"/>
-    </Application.Resources>
+  <Application.Resources>
+    <http:HttpClient x:Key="HttpClient" x:Name="HttpClient"></http:HttpClient>
+    <data:TransactionStorageService x:Key="TransactionStorageService"/>
+    <login:AuthenticationService x:Key="AuthenticationService" HttpClient="{StaticResource HttpClient}"/>
+    <data:DataSynchronizationService x:Key="DataSynchronizationService" HttpClient="{StaticResource HttpClient}" AuthenticationService="{StaticResource AuthenticationService}"/>
+    <profile:PreferencesService x:Key="PreferencesService"/>
+  </Application.Resources>
 </Application>

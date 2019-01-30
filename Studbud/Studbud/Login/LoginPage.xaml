@@ -4,13 +4,16 @@
              xmlns:local="clr-namespace:Studbud.Login"
              x:Class="Studbud.Login.LoginPage">
     <ContentPage.BindingContext>
-        <local:LoginPageViewModel TransactionStorageService="{StaticResource TransactionStorageService}"/>
+        <local:LoginPageViewModel HttpClient="{StaticResource HttpClient}" AuthenticationService="{StaticResource AuthenticationService}"/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid>
+            <Label FontSize="30">Sign in</Label>
+            <StackLayout>
+                <Entry Text="{Binding Username}" />
+                <Entry IsPassword="True" Text="{Binding Password}"/>
+            </StackLayout>
+            <Button FontSize="20" Text="Login" Command="{Binding LoginCommand, Mode=OneTime}"/>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
