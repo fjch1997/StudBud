@@ -23,7 +23,6 @@ namespace Studbud.Login
         {
             LoginCommand = new DelegateCommand(async () =>
             {
-                Username = "****";
                 var result = await HttpClient.GetAsync("https://server.com/login");
                 if (true)
                 {
