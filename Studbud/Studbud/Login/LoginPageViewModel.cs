@@ -1,4 +1,5 @@
 ﻿using Studbud.External;
+using System;
 using System.ComponentModel;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
@@ -16,17 +17,23 @@ namespace Studbud.Login
         private string username;
         public string Password { get => password; set { password = value; OnPropertyChanged(); } }
         private string password;
+        public string ErrorMessage { get => errorMessage; set { errorMessage = value; OnPropertyChanged(); } }
+        private string errorMessage;
 
         public ICommand LoginCommand { get; set; }
 
         public LoginPageViewModel()
         {
-            LoginCommand = new DelegateCommand(async () =>
+            LoginCommand = new AsyncCommand(async () =>
             {
-                var result = await HttpClient.GetAsync("https://server.com/login");
-                if (true)
+                try
                 {
+                    await AuthenticationService.LoginAsync(Username, Password);
                     Application.Current.MainPage = new MainPage();
+                }
+                catch(Exception ex)
+                {
+                    ErrorMessage = ex.Message;
                 }
             });
         }

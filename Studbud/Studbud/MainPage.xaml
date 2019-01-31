@@ -6,26 +6,20 @@
             xmlns:statistics="clr-namespace:Studbud.Statistics"
             xmlns:profile="clr-namespace:Studbud.Profile"
             x:Class="Studbud.MainPage">
+    <TabbedPage.Behaviors>
+        <local:NavigationServiceTabbedPageBehavior NavigationService="{StaticResource NavigationService}"/>
+    </TabbedPage.Behaviors>
     <NavigationPage Title="Transactions" x:Name="TransactionsNavigationPage">
-        <NavigationPage.Resources>
-            <local:NavigationService NavigationPage="{x:Reference TransactionsNavigationPage}" x:Key="NavigationService"/>
-        </NavigationPage.Resources>
         <x:Arguments>
             <transactions:TransactionsHomePage Title="Transactions"/>
         </x:Arguments>
     </NavigationPage>
     <NavigationPage Title="Statistics" x:Name="StatisticsNavigationPage">
-        <NavigationPage.Resources>
-            <local:NavigationService NavigationPage="{x:Reference StatisticsNavigationPage}" x:Key="NavigationService"/>
-        </NavigationPage.Resources>
         <x:Arguments>
             <statistics:StatisticsHomePage Title="Statistics" />
         </x:Arguments>
     </NavigationPage>
     <NavigationPage Title="Profile" x:Name="ProfileNavigationPage">
-        <NavigationPage.Resources>
-            <local:NavigationService NavigationPage="{x:Reference ProfileNavigationPage}" x:Key="NavigationService"/>
-        </NavigationPage.Resources>
         <x:Arguments>
             <profile:ProfileHomePage Title="Profile" />
         </x:Arguments>

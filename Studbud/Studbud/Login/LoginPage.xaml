@@ -7,13 +7,33 @@
         <local:LoginPageViewModel HttpClient="{StaticResource HttpClient}" AuthenticationService="{StaticResource AuthenticationService}"/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <Grid>
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="46"/>
+            </Grid.RowDefinitions>
             <Label FontSize="30">Sign in</Label>
-            <StackLayout>
-                <Entry Text="{Binding Username}" />
-                <Entry IsPassword="True" Text="{Binding Password}"/>
+            <Grid Grid.Row="1" VerticalOptions="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="7*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Label VerticalOptions="Center">Username: </Label>
+                <Entry Grid.Column="1" Text="{Binding Username}" />
+                <Label Grid.Row="1" VerticalOptions="Center">Password:</Label>
+                <Entry Grid.Row="1" Grid.Column="1" IsPassword="True" Text="{Binding Password}"/>
+                <Label Grid.Row="1" Grid.ColumnSpan="2" TextColor="Red" Text="{Binding ErrorMessage}"/>
+            </Grid>
+            <StackLayout Grid.Row="1" VerticalOptions="Center">
+                
             </StackLayout>
-            <Button FontSize="20" Text="Login" Command="{Binding LoginCommand, Mode=OneTime}"/>
+            <Button Grid.Row="2" WidthRequest="180" HorizontalOptions="Center" FontSize="20" Text="Login" Command="{Binding LoginCommand, Mode=OneTime}"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

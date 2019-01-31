@@ -4,7 +4,7 @@
              xmlns:statistics="clr-namespace:Studbud.Statistics"
              x:Class="Studbud.Statistics.StatisticsHomePage">
     <ContentPage.BindingContext>
-        <statistics:StatisticsHomePageViewModel NavigationSerive="{StaticResource NavigationSerivce}"/>
+        <statistics:StatisticsHomePageViewModel NavigationSerive="{StaticResource NavigationService}"/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <Button Text="Timeline" Command="{Binding OpenTimelineCommand}"></Button>

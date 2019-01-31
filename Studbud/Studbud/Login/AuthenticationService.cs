@@ -28,7 +28,7 @@ namespace Studbud.Login
         public string Token { get => token; set { token = value; OnPropertyChanged(); } }
         private string token;
 
-        public string Username => throw new NotImplementedException();
+        public string Username { get; set; }
 
         public Uri ProfilePictureUri => throw new NotImplementedException();
 
@@ -36,7 +36,8 @@ namespace Studbud.Login
 
         public Task LoginAsync(string username, string password)
         {
-            throw new NotImplementedException();
+            Username = username;
+            return Task.FromResult(false);
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
