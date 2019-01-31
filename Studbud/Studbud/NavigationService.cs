@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Studbud.Login;
+using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -8,6 +9,7 @@ namespace Studbud
     public class NavigationService : INavigationService, ISupportInitialize
     {
         public NavigationPage NavigationPage { get; set; }
+        public Application Application { get; set; }
 
         public void BeginInit() { }
         public void EndInit()
@@ -22,6 +24,13 @@ namespace Studbud
 
         public Task PushAsync(Page page) => NavigationPage.PushAsync(page);
         public Task PushAsync(Page page, bool animated) => NavigationPage.PushAsync(page, animated);
+        public void LoadMainPage() => Application.MainPage = new MainPage();
+        public void LoadLoginPage()
+        {
+            NavigationPage navigationPage = new NavigationPage(new LoginPage());
+            Application.MainPage = navigationPage;
+            NavigationPage = navigationPage;
+        }
     }
     public interface INavigationService
     {
@@ -31,5 +40,7 @@ namespace Studbud
         Task<Page> PopAsync(bool animated);
         Task PopToRootAsync();
         Task PopToRootAsync(bool animated);
+        void LoadMainPage();
+        void LoadLoginPage();
     }
 }

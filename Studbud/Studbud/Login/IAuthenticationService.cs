@@ -18,8 +18,10 @@ namespace Studbud.Login
         /// TODO: Create and list all possible exceptions here (Password incorrect, server is down etc.).
         /// </summary>
         Task LoginAsync(string username, string password);
+        Task RegisterAsync(string username, string password);
         string Username { get; }
         Uri ProfilePictureUri { get; }
+
 
         /// TODO: other user data.
     }

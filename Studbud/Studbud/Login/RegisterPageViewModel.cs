@@ -1,14 +1,16 @@
 ﻿using Studbud.External;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
+using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace Studbud.Login
 {
-    public class LoginPageViewModel : INotifyPropertyChanged, ISupportInitialize
+    public class RegisterPageViewModel : INotifyPropertyChanged, ISupportInitialize
     {
         public HttpClient HttpClient { get; set; }
         public IAuthenticationService AuthenticationService { get; set; }
@@ -20,24 +22,28 @@ namespace Studbud.Login
             if (AuthenticationService == null) throw new ArgumentNullException(nameof(AuthenticationService));
             if (NavigationService == null) throw new ArgumentNullException(nameof(NavigationService));
         }
-
         public string Username { get => username; set { username = value; OnPropertyChanged(); } }
         private string username;
         public string Password { get => password; set { password = value; OnPropertyChanged(); } }
         private string password;
+        public string ConfirmPassword { get => confirmPassword; set { confirmPassword = value; OnPropertyChanged(); } }
+        private string confirmPassword;
         public string ErrorMessage { get => errorMessage; set { errorMessage = value; OnPropertyChanged(); } }
         private string errorMessage;
-
-        public ICommand LoginCommand { get; set; }
+        
         public ICommand RegisterCommand { get; set; }
-
-        public LoginPageViewModel()
+        public RegisterPageViewModel()
         {
-            LoginCommand = new AsyncCommand(async () =>
+            RegisterCommand = new AsyncCommand(async () =>
             {
+                if (Password != ConfirmPassword)
+                {
+                    ErrorMessage = "Password mismatch.";
+                    return;
+                }
                 try
                 {
-                    await AuthenticationService.LoginAsync(Username, Password);
+                    await AuthenticationService.RegisterAsync(Username, Password);
                     NavigationService.LoadMainPage();
                 }
                 catch (Exception ex)
@@ -45,17 +51,8 @@ namespace Studbud.Login
                     ErrorMessage = ex.Message;
                 }
             });
-            RegisterCommand = new DelegateCommand(() =>
-            {
-                NavigationService.PushAsync(new RegisterPage());
-            });
         }
-
         public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

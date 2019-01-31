@@ -8,16 +8,11 @@ namespace Studbud
 {
     public partial class App : Application
     {
+        private NavigationService NavigationService => (NavigationService)Resources[nameof(NavigationService)];
+        private AuthenticationService AuthenticationService => (AuthenticationService)Resources[nameof(AuthenticationService)];
         public App()
         {
             InitializeComponent();
-
-            var authenticationService = (AuthenticationService)Resources[nameof(AuthenticationService)];
-            authenticationService.PropertyChanged += AuthenticationService_PropertyChanged;
-            if (authenticationService.LoggedIn)
-                MainPage = new MainPage();
-            else
-                MainPage = new LoginPage();
         }
 
         private void AuthenticationService_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -25,26 +20,22 @@ namespace Studbud
             var authenticationService = (AuthenticationService)sender;
             if (e.PropertyName == nameof(AuthenticationService.LoggedIn))
             {
-                if (authenticationService.LoggedIn)
-                    MainPage = new MainPage();
-                else
-                    MainPage = new LoginPage();
+                NavigateBasedOnLogin();
             }
         }
 
         protected override void OnStart()
         {
-            // Handle when your app starts
+            AuthenticationService.PropertyChanged += AuthenticationService_PropertyChanged;
+            NavigateBasedOnLogin();
         }
 
-        protected override void OnSleep()
+        private void NavigateBasedOnLogin()
         {
-            // Handle when your app sleeps
-        }
-
-        protected override void OnResume()
-        {
-            // Handle when your app resumes
+            if (AuthenticationService.LoggedIn)
+                NavigationService.LoadMainPage();
+            else
+                NavigationService.LoadLoginPage();
         }
     }
 }

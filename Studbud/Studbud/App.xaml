@@ -6,13 +6,13 @@
              xmlns:http="clr-namespace:System.Net.Http;assembly=netstandard"
              xmlns:profile="clr-namespace:Studbud.Profile"
              xmlns:studbud="clr-namespace:Studbud"
-             x:Class="Studbud.App">
+             x:Class="Studbud.App" x:Name="application">
     <Application.Resources>
         <http:HttpClient x:Key="HttpClient" x:Name="HttpClient"></http:HttpClient>
         <data:TransactionStorageService x:Key="TransactionStorageService"/>
         <login:AuthenticationService x:Key="AuthenticationService" HttpClient="{StaticResource HttpClient}"/>
         <data:DataSynchronizationService x:Key="DataSynchronizationService" HttpClient="{StaticResource HttpClient}" AuthenticationService="{StaticResource AuthenticationService}"/>
         <profile:PreferencesService x:Key="PreferencesService"/>
-        <studbud:NavigationService x:Key="NavigationService"/>
+        <studbud:NavigationService x:Key="NavigationService" Application="{Reference application}"/>
     </Application.Resources>
 </Application>
