@@ -25,7 +25,7 @@ namespace Studbud.Login
         public string Token { get => token; set { token = value; OnPropertyChanged(); } }
         private string token;
         public string Username { get; set; }
-        public Uri ProfilePictureUri => throw new NotImplementedException();
+        public Uri ProfilePictureUri { get; set; }
         public Task LoginAsync(string username, string password)
         {
             Username = username;
