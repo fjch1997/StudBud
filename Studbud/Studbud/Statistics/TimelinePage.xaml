@@ -3,10 +3,30 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Studbud.Statistics.TimelinePage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid x:Name="LayoutRoot">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100" />
+                <RowDefinition Height="*" />
+                <Image Source="local.png" />
+                <StackLayout>
+                    <Label Text="Timeline"
+                    VerticalOptions="StartAndExpand" 
+                    HorizontalOptions="CenterAndExpand" 
+                    FontSize="40"   />
+                    <Label Text="Income"
+                           VerticalOptions="StartAndExpand"
+                           HorizontalOptions="Start"
+                           FontSize="20"    />
+                    <Label Text="Expense"
+                           VerticalOptions="StartAndExpand"
+                           HorizontalOptions="Start"
+                           FontSize="20"    />
+                    <Label Text="Budget"
+                           VerticalOptions="StartAndExpand"
+                           HorizontalOptions="Start"
+                           FontSize="20"    />
+                </StackLayout>
+            </Grid.RowDefinitions>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
