@@ -9,12 +9,16 @@ using Xamarin.Forms.Xaml;
 
 namespace Studbud.Statistics
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class TimelinePage : ContentPage
-	{
-		public TimelinePage ()
-		{
-			InitializeComponent ();
-		}
-	}
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class TimelinePage : ContentPage
+    {
+        private const string V = "local.png";
+
+        public TimelinePage()
+        {
+            InitializeComponent();
+            var image = new Image { Source = "V" };
+
+        }
+    }
 }
