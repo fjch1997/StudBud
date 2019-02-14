@@ -2,11 +2,20 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:statistics="clr-namespace:Studbud.Statistics"
+             xmlns:microcharts="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
              x:Class="Studbud.Statistics.StatisticsHomePage">
     <ContentPage.BindingContext>
-        <statistics:StatisticsHomePageViewModel NavigationSerive="{StaticResource NavigationService}"/>
+        <statistics:StatisticsHomePageViewModel NavigationSerive="{StaticResource NavigationService}" ChartView="{Reference chartView}"/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <Button Text="Timeline" Command="{Binding OpenTimelineCommand}"></Button>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <microcharts:ChartView x:Name="chartView"/>
+            <Button Grid.Row="2" WidthRequest="180" HeightRequest="60" Text="Timeline" Command="{Binding OpenTimelineCommand}"></Button>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
