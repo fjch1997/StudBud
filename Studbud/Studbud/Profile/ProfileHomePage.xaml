@@ -1,12 +1,43 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:profile="clr-namespace:Studbud.Profile"
              x:Class="Studbud.Profile.ProfileHomePage">
+    <ContentPage.BindingContext>
+        <profile:ProfileHomePageViewModel />
+    </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="300" />
+            </Grid.RowDefinitions>
+            <Label FontSize ="Large" HorizontalOptions="Center" Text="{Binding Username, Source={StaticResource AuthenticationService}}"></Label>
+            <Image Source="ProfileIcon.png" HorizontalOptions="Center" />
+
+            <Label  FormattedText="23" FontSize ="Large" HorizontalOptions="Center" Text="Profile Name"></Label>
+
+            <Image Source="ProfileIcon.png" />
+
+
+            <Button Text="Savings"
+                VerticalOptions="Center"
+                HorizontalOptions="StartAndExpand"
+                Clicked="OnButtonClicked" />
+
+            <Button Text="Budget"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                Clicked="OnButtonClicked" />
+
+            <Button Text="Spent"
+                VerticalOptions="Center"
+                HorizontalOptions="End"
+                Clicked="OnButtonClicked" />
+
+
+        </Grid>
+        
     </ContentPage.Content>
 </ContentPage>
