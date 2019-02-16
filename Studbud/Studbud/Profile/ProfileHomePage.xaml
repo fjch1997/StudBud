@@ -9,33 +9,65 @@
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="3*" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="100*" />
+                <RowDefinition Height="19" />
                 <RowDefinition Height="300" />
             </Grid.RowDefinitions>
+            
             <Label FontSize ="Large" HorizontalOptions="Center" Text="{Binding Username, Source={StaticResource AuthenticationService}}"></Label>
-            <Image Source="ProfileIcon.png" HorizontalOptions="Center" />
-
             <Label  FormattedText="23" FontSize ="Large" HorizontalOptions="Center" Text="Profile Name"></Label>
+            <!--Displays name of user-->
 
             <Image Source="ProfileIcon.png" />
+            <!--Shows a image of the profile icon)-->
 
 
-            <Button Text="Savings"
-                VerticalOptions="Center"
-                HorizontalOptions="StartAndExpand"
-                Clicked="OnButtonClicked" />
-
-            <Button Text="Budget"
-                VerticalOptions="Center"
-                HorizontalOptions="Center"
-                Clicked="OnButtonClicked" />
-
-            <Button Text="Spent"
-                VerticalOptions="Center"
-                HorizontalOptions="End"
-                Clicked="OnButtonClicked" />
-
+            <Label Text="Savings"
+                   VerticalOptions="Center"
+                   HorizontalOptions="StartAndExpand" 
+                   TextColor="AliceBlue" ></Label>
+            
+            <Label Text="$400"
+                   VerticalOptions="Center"
+                   HorizontalOptions="StartAndExpand" 
+                   Grid.Row="1" 
+                   TextColor= "Yellow" ></Label>
+            
+            <Label Text="Budget"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center" 
+                   TextColor="AliceBlue"></Label>
+            
+            <Label Text="$1000"
+                   VerticalOptions="Center"
+                   HorizontalOptions="CenterAndExpand" 
+                   Grid.Row="1" 
+                   TextColor="Green"></Label>
+            
+            <Label Text="Spent"
+                   VerticalOptions="Center"
+                   HorizontalOptions="End"
+                   TextColor="AliceBlue"></Label>
+            
+            <Label Text="$600"
+                   VerticalOptions="Center"
+                   HorizontalOptions="EndAndExpand" 
+                   Grid.Row="1" 
+                   TextColor="Red"></Label>
+        
+            
+            
+            
+          
+            <!--Things need to Add
+            
+           1. Add calender button
+           2. Add freinds button
+           3.
+        
+            -->
+           
+            
 
         </Grid>
         
