@@ -1,12 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:transactions="clr-namespace:Studbud.Transactions"
              x:Class="Studbud.Transactions.NewTransactionPage">
+    <ContentPage.BindingContext>
+        <transactions:NewTransactionsPageViewModel NavigationService="{StaticResource NavigationService}" TransactionStorageService="{StaticResource TransactionStorageService}"/>
+    </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid x:Name="LayoutRoot">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <StackLayout>
+                <Label Text="Transactions"
+                VerticalOptions="StartAndExpand" 
+                HorizontalOptions="Center" 
+                FontSize="40"/>
+                <Label Text="Name:"  VerticalOptions="Start"/>
+                <Entry Text="{Binding Name}"></Entry>
+                <Label Text="Amount:" VerticalOptions="Start"/>
+                <Entry Text="{Binding Amount}"></Entry>
+                <Label Text="Merchant:" VerticalOptions="Start"/>
+                <Entry Text="{Binding Merchant}"></Entry>
+                <Label Text="Catagory" VerticalOptions="Start"/>
+                <Entry Text="{Binding Catagory}"></Entry>
+            </StackLayout>
+            <Button Grid.Row="1" WidthRequest="220" HeightRequest="60" Text="Save"/>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

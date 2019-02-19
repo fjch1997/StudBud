@@ -10,6 +10,10 @@ namespace Studbud.Data
         public string Merchant { get; set; }
         public decimal Amount { get; set; }
         public Guid Guid { get; set; }
+        public override string ToString()
+        {
+            return Amount.ToString("C") + " " + Name;
+        }
     }
     /// <summary>
     /// List of predefined catagories.
