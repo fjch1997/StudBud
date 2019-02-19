@@ -47,7 +47,7 @@ namespace Studbud.Data
         }
         public IEnumerable<Transaction> GetTransactions(DateTime startTime, DateTime endTime)
         {
-            for (int year = startTime.Year; year < endTime.Year; year++)
+            for (int year = startTime.Year; year <= endTime.Year; year++)
             {
                 for (int month = 1; month <= 12; month++)
                 {
@@ -90,7 +90,7 @@ namespace Studbud.Data
         }
         private string GetFileName(int month, int year)
         {
-            return Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\" + month + "-" + year + ".json";
+            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), month + "-" + year + ".json");
         }
     }
 }

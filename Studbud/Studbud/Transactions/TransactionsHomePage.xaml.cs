@@ -14,7 +14,12 @@ namespace Studbud.Transactions
 	{
 		public TransactionsHomePage ()
 		{
-			InitializeComponent ();
+			InitializeComponent();
 		}
-	}
+        protected override void OnAppearing()
+        {
+            ((TransactionsHomePageViewModel)BindingContext).RefreshTransactionsCommand.Execute(null);
+            base.OnAppearing();
+        }
+    }
 }

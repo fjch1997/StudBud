@@ -24,6 +24,7 @@ namespace Studbud.Transactions
                     Catagory = catagory,
                     Name = name,
                     Merchant = merchant,
+                    DateTime = date.Date.Add(time),
                 });
                 NavigationService.PopAsync();
             });
@@ -35,6 +36,10 @@ namespace Studbud.Transactions
         public string Catagory { get => catagory; set { catagory = value; OnPropertyChanged(); } }
         private string catagory;
         public string Merchant { get => merchant; set { merchant = value; OnPropertyChanged(); } }
+        public DateTime Date { get => date; set { date = value; OnPropertyChanged(); } }
+        private DateTime date = DateTime.Now.Date;
+        public TimeSpan Time { get => time; set { time = value; OnPropertyChanged(); } }
+        private TimeSpan time = DateTime.Now.TimeOfDay;
         public ICommand SaveCommand { get; }
         private string merchant;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

@@ -19,7 +19,6 @@ namespace Studbud.Statistics
             {
                 NavigationSerive.PushAsync(new TimelinePage());
             });
-            InitializeChart();
         }
         private void InitializeChart()
         {
