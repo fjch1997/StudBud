@@ -2,9 +2,13 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:profile="clr-namespace:Studbud.Profile"
+             xmlns:converters="clr-namespace:Studbud.Converters"
              x:Class="Studbud.Profile.ProfileHomePage">
+    <ContentPage.Resources>
+        <converters:CurrencyConverter x:Key="CurrencyConverter"/>
+    </ContentPage.Resources>
     <ContentPage.BindingContext>
-        <profile:ProfileHomePageViewModel />
+        <profile:ProfileHomePageViewModel TransactionStorageService="{StaticResource TransactionStorageService}"/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <Grid>
@@ -13,7 +17,7 @@
                 <RowDefinition Height="19" />
                 <RowDefinition Height="300" />
             </Grid.RowDefinitions>
-            
+
             <Label FontSize ="Large" HorizontalOptions="Center" Text="{Binding Username, Source={StaticResource AuthenticationService}}"></Label>
             <Label  FormattedText="23" FontSize ="Large" HorizontalOptions="Center" Text="Profile Name"></Label>
             <!--Displays name of user-->
@@ -26,50 +30,47 @@
                    VerticalOptions="Center"
                    HorizontalOptions="StartAndExpand" 
                    TextColor="AliceBlue" ></Label>
-            
-            <Label Text="$400"
+
+            <Label Text="{Binding Savings, Converter={StaticResource CurrencyConverter}}"
                    VerticalOptions="Center"
                    HorizontalOptions="StartAndExpand" 
                    Grid.Row="1" 
                    TextColor= "Yellow" ></Label>
-            
+
             <Label Text="Budget"
                    VerticalOptions="Center"
                    HorizontalOptions="Center" 
                    TextColor="AliceBlue"></Label>
-            
-            <Label Text="$1000"
+
+            <Label Text="{Binding Budget, Converter={StaticResource CurrencyConverter}}"
                    VerticalOptions="Center"
                    HorizontalOptions="CenterAndExpand" 
                    Grid.Row="1" 
                    TextColor="Green"></Label>
-            
+
             <Label Text="Spent"
                    VerticalOptions="Center"
                    HorizontalOptions="End"
                    TextColor="AliceBlue"></Label>
-            
-            <Label Text="$600"
+
+            <Label Text="{Binding Spent, Converter={StaticResource CurrencyConverter}}"
                    VerticalOptions="Center"
                    HorizontalOptions="EndAndExpand" 
                    Grid.Row="1" 
                    TextColor="Red"></Label>
-        
-            
-            
-            
-          
-            <!--Things need to Add
-            
-           1. Add calender button
-           2. Add freinds button
-           3.
-        
-            -->
-           
-            
 
+
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button HeightRequest="60" WidthRequest="120" HorizontalOptions="Center" Text="Calendar"/>
+                <Button HeightRequest="60" WidthRequest="120" HorizontalOptions="Center" Text="Friends"/>
+            </Grid>
+            
         </Grid>
-        
+
     </ContentPage.Content>
 </ContentPage>
