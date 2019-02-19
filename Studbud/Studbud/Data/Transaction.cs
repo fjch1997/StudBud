@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Studbud.Data
 {
@@ -8,7 +6,18 @@ namespace Studbud.Data
     {
         public string Name { get; set; }
         public DateTime DateTime { get; set; }
-        // etc...
-        // Model only. No logics.
+        public string Catagory { get; set; }
+        public string Merchant { get; set; }
+        public Guid Guid { get; set; }
+    }
+    /// <summary>
+    /// List of predefined catagories.
+    /// </summary>
+    public static class CatagoryNames
+    {
+        public const string Utility = "Utility";
+        public const string Transportation = "Transportation";
+        public const string Dining = "Dining";
+        public const string Social = "Social";
     }
 }

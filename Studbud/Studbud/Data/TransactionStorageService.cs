@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Text;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Studbud.Data
@@ -10,8 +11,7 @@ namespace Studbud.Data
     /// </summary>
     public class TransactionStorageService : ITransactionStorageService
     {
-        // TODO: Create fields that stores data and call file storage APIs to storage those data.
-        
+        private JsonSerializerSettings serializerSettings = new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Auto };
         public TransactionStorageService()
         {
             // Run a background task to refresh transactions from transaction providers.
@@ -24,7 +24,18 @@ namespace Studbud.Data
         }
         public void AddTransaction(Transaction transaction)
         {
-            throw new NotImplementedException();
+            var file = GetFileName(transaction.DateTime.Month, transaction.DateTime.Year);
+            List<Transaction> transactions;
+            if (File.Exists(file))
+            {
+                transactions = JsonConvert.DeserializeObject<List<Transaction>>(File.ReadAllText(file), serializerSettings);
+            }
+            else
+            {
+                transactions = new List<Transaction>();
+            }
+            transactions.Add(transaction);
+            File.WriteAllText(file, JsonConvert.SerializeObject(transactions));
         }
         public void AddTransactionProvider(ITransactionProvider transactionProvider)
         {
@@ -36,15 +47,50 @@ namespace Studbud.Data
         }
         public IEnumerable<Transaction> GetTransactions(DateTime startTime, DateTime endTime)
         {
-            throw new NotImplementedException();
+            for (int year = startTime.Year; year < endTime.Year; year++)
+            {
+                for (int month = 1; month <= 12; month++)
+                {
+                    if (startTime.Year == year && month < startTime.Month || endTime.Year == year && month > endTime.Month)
+                        continue;
+                    var file = GetFileName(month, year);
+                    List<Transaction> transactions;
+                    if (File.Exists(file))
+                    {
+                        transactions = JsonConvert.DeserializeObject<List<Transaction>>(File.ReadAllText(file), serializerSettings);
+                        foreach (var item in transactions)
+                        {
+                            yield return item;
+                        }
+                    }
+                }
+            }
         }
-        public void RemoveTransaction(Transaction transaction)
+        public bool RemoveTransaction(Transaction transaction)
         {
-            throw new NotImplementedException();
+            var file = GetFileName(transaction.DateTime.Month, transaction.DateTime.Year);
+            List<Transaction> transactions;
+            if (File.Exists(file))
+            {
+                transactions = JsonConvert.DeserializeObject<List<Transaction>>(File.ReadAllText(file), serializerSettings);
+                var result = transactions.RemoveAll(t => t.Guid == transaction.Guid);
+                if (result == 0)
+                    return false;
+                File.WriteAllText(file, JsonConvert.SerializeObject(transactions));
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         public void RemoveTransactionProvider(ITransactionProvider transactionProvider)
         {
             throw new NotImplementedException();
+        }
+        private string GetFileName(int month, int year)
+        {
+            return Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\" + month + "-" + year + ".json";
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Studbud.Data
     {
         void AddTransaction(Transaction transaction);
         IEnumerable<Transaction> GetTransactions(DateTime startTime, DateTime endTime);
-        void RemoveTransaction(Transaction transaction);
+        bool RemoveTransaction(Transaction transaction);
         void AddTransactionProvider(ITransactionProvider transactionProvider);
         void RemoveTransactionProvider(ITransactionProvider transactionProvider);
         IEnumerable<ITransactionProvider> GetTransactionProviders();
