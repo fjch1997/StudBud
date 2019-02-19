@@ -8,6 +8,7 @@ namespace Studbud.Data
         public DateTime DateTime { get; set; }
         public string Catagory { get; set; }
         public string Merchant { get; set; }
+        public decimal Amount { get; set; }
         public Guid Guid { get; set; }
     }
     /// <summary>
