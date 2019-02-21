@@ -14,7 +14,9 @@ namespace Studbud.Profile
 	{
 		public ProfileHomePage ()
 		{
-			InitializeComponent ();
+                
+                
+                
 
 
 		}
