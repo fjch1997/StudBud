@@ -6,27 +6,27 @@
         <Grid x:Name="LayoutRoot">
             <Grid.RowDefinitions>
                 <RowDefinition Height="100" />
-                <RowDefinition Height="*" />
-                <Image Source="local.png" />
-                <StackLayout>
-                    <Label Text="Timeline"
+                <RowDefinition Height="*" />                
+            </Grid.RowDefinitions>
+            <Image Source="local.png" />
+            <StackLayout>
+                <Label Text="Timeline"
                     VerticalOptions="StartAndExpand" 
                     HorizontalOptions="CenterAndExpand" 
                     FontSize="40"   />
-                    <Label Text="Income"
+                <Label Text="Income"
                            VerticalOptions="StartAndExpand"
                            HorizontalOptions="Start"
                            FontSize="20"    />
-                    <Label Text="Expense"
+                <Label Text="Expense"
                            VerticalOptions="StartAndExpand"
                            HorizontalOptions="Start"
                            FontSize="20"    />
-                    <Label Text="Budget"
+                <Label Text="Budget"
                            VerticalOptions="StartAndExpand"
                            HorizontalOptions="Start"
                            FontSize="20"    />
-                </StackLayout>
-            </Grid.RowDefinitions>
+            </StackLayout>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

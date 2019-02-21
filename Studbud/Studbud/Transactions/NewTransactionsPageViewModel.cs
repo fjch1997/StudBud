@@ -24,7 +24,7 @@ namespace Studbud.Transactions
                     Catagory = catagory,
                     Name = name,
                     Merchant = merchant,
-                    DateTime = date.Date.Add(time),
+                    DateTime = date.Date.Add(time).ToUniversalTime(),
                 });
                 NavigationService.PopAsync();
             });

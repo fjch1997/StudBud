@@ -15,6 +15,7 @@ namespace Studbud.Statistics
 		public StatisticsHomePage ()
 		{
 			InitializeComponent ();
+            ((StatisticsHomePageViewModel)BindingContext).EndInit();
 		}
 	}
 }
