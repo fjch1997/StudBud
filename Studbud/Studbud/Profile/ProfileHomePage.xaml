@@ -13,62 +13,57 @@
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="100*" />
-                <RowDefinition Height="19" />
-                <RowDefinition Height="300" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <Label FontSize ="Large" HorizontalOptions="Center" Text="{Binding Username, Source={StaticResource AuthenticationService}}"></Label>
-            <Label  FormattedText="23" FontSize ="Large" HorizontalOptions="Center" Text="Profile Name"></Label>
             <!--Displays name of user-->
 
-            <Image Source="ProfileIcon.png" />
+            <Image Source="Studbud.Android/Resources/drawable/ProfileIcon.png" Grid.Row="0" HorizontalOptions="Center"/>
             <!--Shows a image of the profile icon)-->
 
 
             <Label Text="Savings"
                    VerticalOptions="Center"
                    HorizontalOptions="StartAndExpand" 
+                     
                    TextColor="AliceBlue" ></Label>
 
             <Label Text="{Binding Savings, Converter={StaticResource CurrencyConverter}}"
                    VerticalOptions="Center"
                    HorizontalOptions="StartAndExpand" 
-                   Grid.Row="1" 
+                   
                    TextColor= "Yellow" ></Label>
 
             <Label Text="Budget"
                    VerticalOptions="Center"
                    HorizontalOptions="Center" 
+                   
                    TextColor="AliceBlue"></Label>
 
             <Label Text="{Binding Budget, Converter={StaticResource CurrencyConverter}}"
                    VerticalOptions="Center"
                    HorizontalOptions="CenterAndExpand" 
-                   Grid.Row="1" 
+                   
                    TextColor="Green"></Label>
 
             <Label Text="Spent"
                    VerticalOptions="Center"
                    HorizontalOptions="End"
+                   
                    TextColor="AliceBlue"></Label>
 
             <Label Text="{Binding Spent, Converter={StaticResource CurrencyConverter}}"
                    VerticalOptions="Center"
                    HorizontalOptions="EndAndExpand" 
-                   Grid.Row="1" 
+                   
                    TextColor="Red"></Label>
 
-
-
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Button HeightRequest="60" WidthRequest="120" HorizontalOptions="Center" Text="Calendar"/>
-                <Button HeightRequest="60" WidthRequest="120" HorizontalOptions="Center" Text="Friends"/>
-            </Grid>
+            <!-- <Button HeightRequest="50" WidthRequest="50" VerticalOptions="Center" Text="Calendar"/>
+            <Button HeightRequest="50" WidthRequest="50" VerticalOptions="Center" Text="Friends"/>
+            -->
             
         </Grid>
 
