@@ -40,9 +40,9 @@ namespace Studbud.Profile
 
         public void EndInit()
         {
-            var startTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-            var endTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month + 1, 1).AddDays(-1);
-            spent = TransactionStorageService.GetTransactions(startTime, endTime).Sum(t => t.Amount);
+            var startTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month + 1, 1).AddDays(-1);
+            var endTime = DateTime.UtcNow;
+            Spent = TransactionStorageService.GetTransactions(startTime, endTime).Sum(t => t.Amount);
         }
     }
 }

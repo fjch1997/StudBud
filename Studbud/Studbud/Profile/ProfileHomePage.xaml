@@ -76,9 +76,9 @@
                 Command="{Binding EditBudgetCommand}"
                 HeightRequest="50" WidthRequest="50" Grid.Row="4" VerticalOptions="Center" Text="Budget"/> -->
 
-            <Entry Placeholder="Budget" HorizontalTextAlignment="Center" Grid.Row="3" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" Margin="0,-200,0,0"  WidthRequest="100"  ></Entry>
+            <Entry Text="{Binding Budget}" Placeholder="Budget" HorizontalTextAlignment="Center" Grid.Row="3" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" Margin="0,-200,0,0"  WidthRequest="100"  ></Entry>
 
-            <Button HeightRequest="50" WidthRequest="50" Grid.Row="5" VerticalOptions="Center" Text="Log Out"/>
+            <Button Command="{Binding LogoutCommand}"  HeightRequest="50" WidthRequest="50" Grid.Row="5" VerticalOptions="Center" Text="Log Out"/>
             <!-- Buttons -->
             
         </Grid>
