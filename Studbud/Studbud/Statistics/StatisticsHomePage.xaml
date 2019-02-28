@@ -5,16 +5,24 @@
              xmlns:microcharts="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
              x:Class="Studbud.Statistics.StatisticsHomePage">
     <ContentPage.BindingContext>
-        <statistics:StatisticsHomePageViewModel NavigationSerive="{StaticResource NavigationService}" ChartView="{Reference chartView}"/>
+        <statistics:StatisticsHomePageViewModel NavigationSerive="{StaticResource NavigationService}" TransactionStorageService="{StaticResource TransactionStorageService}" ChartView="{Reference chartView}"/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <microcharts:ChartView x:Name="chartView"/>
+            <microcharts:ChartView x:Name="chartView" VerticalOptions="CenterAndExpand" HeightRequest="250" />
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label FontSize="Medium" VerticalTextAlignment="Center">Time Range</Label>
+                <Picker Grid.Column="1" ItemsSource="{Binding TimeRangeValues}" SelectedItem="{Binding SelectedTimeRange}"/>
+            </Grid>
             <Button Grid.Row="2" WidthRequest="180" HeightRequest="60" Text="Timeline" Command="{Binding OpenTimelineCommand}"></Button>
         </Grid>
     </ContentPage.Content>
