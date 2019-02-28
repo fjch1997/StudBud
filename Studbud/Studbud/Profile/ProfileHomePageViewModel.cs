@@ -8,14 +8,11 @@ using System.Windows.Input;
 
 namespace Studbud.Profile
 {
-    public class ProfileHomePageViewModel : INotifyPropertyChanged
+    public class ProfileHomePageViewModel : INotifyPropertyChanged, ISupportInitialize
     {
         public ITransactionStorageService TransactionStorageService { get; set; }
         public ProfileHomePageViewModel()
         {
-            var startTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-            var endTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month + 1, 1).AddDays(-1);
-            spent = TransactionStorageService.GetTransactions(startTime, endTime).Sum(t => t.Amount);
         }
 
         public decimal Savings => Budget - Spent;
@@ -28,6 +25,16 @@ namespace Studbud.Profile
         private decimal spent;
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        
+
+        public void BeginInit()
+        {
+        }
+
+        public void EndInit()
+        {
+            var startTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            var endTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month + 1, 1).AddDays(-1);
+            spent = TransactionStorageService.GetTransactions(startTime, endTime).Sum(t => t.Amount);
+        }
     }
 }

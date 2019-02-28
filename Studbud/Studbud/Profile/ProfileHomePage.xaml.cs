@@ -1,4 +1,5 @@
 ﻿
+using System.ComponentModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -10,6 +11,7 @@ namespace Studbud.Profile
         public ProfileHomePage()
         {
             InitializeComponent();
+            ((ISupportInitialize)BindingContext).EndInit();
         }
     }
 }
