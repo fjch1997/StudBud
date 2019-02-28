@@ -15,6 +15,33 @@ namespace Studbud.Transactions
         {
             SaveCommand = new DelegateCommand(() =>
             {
+                if (Name == "AddTestData")
+                {
+                    TransactionStorageService.AddTransaction(new Transaction
+                    {
+                        Name = "Steak",
+                        Amount = 12.95M,
+                        Merchant = "Drexel",
+                        Catagory = "Food",
+                        DateTimeUtc = new DateTime(2019, 2, 28, 12, 32, 49),
+                    });
+                    TransactionStorageService.AddTransaction(new Transaction
+                    {
+                        Name = "Steak",
+                        Amount = 12.95M,
+                        Merchant = "Drexel",
+                        Catagory = "Food",
+                        DateTimeUtc = new DateTime(2019, 2, 28, 12, 32, 49),
+                    });
+                    TransactionStorageService.AddTransaction(new Transaction
+                    {
+                        Name = "Steak",
+                        Amount = 12.95M,
+                        Merchant = "Drexel",
+                        Catagory = "Food",
+                        DateTimeUtc = new DateTime(2019, 2, 28, 12, 32, 49),
+                    });
+                }
                 if (Transaction != null)
                 {
                     TransactionStorageService.RemoveTransaction(Transaction);
