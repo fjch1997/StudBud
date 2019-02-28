@@ -8,7 +8,9 @@
         <converters:CurrencyConverter x:Key="CurrencyConverter"/>
     </ContentPage.Resources>
     <ContentPage.BindingContext>
-        <profile:ProfileHomePageViewModel TransactionStorageService="{StaticResource TransactionStorageService}"/>
+        <profile:ProfileHomePageViewModel TransactionStorageService="{StaticResource TransactionStorageService}" 
+                                          AuthenticationService="{StaticResource AuthenticationService}" 
+                                          NavigationService="{StaticResource NavigationService}"/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <Grid Margin="5">

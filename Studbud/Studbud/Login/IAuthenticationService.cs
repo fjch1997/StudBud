@@ -24,5 +24,6 @@ namespace Studbud.Login
         void SerializeEncrypted(string fileName, object obj);
         T DeserializeEncrypted<T>(string fileName);
         void SaveUserInfo();
+        void Logout();
     }
 }
