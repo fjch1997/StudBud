@@ -12,7 +12,6 @@
         <login:AuthenticationService x:Key="AuthenticationService" HttpClient="{StaticResource HttpClient}"/>
         <data:TransactionStorageService x:Key="TransactionStorageService" AuthenticationService="{StaticResource AuthenticationService}"/>
         <data:DataSynchronizationService x:Key="DataSynchronizationService" HttpClient="{StaticResource HttpClient}" AuthenticationService="{StaticResource AuthenticationService}"/>
-        <profile:PreferencesService x:Key="PreferencesService"/>
         <studbud:NavigationService x:Key="NavigationService" Application="{Reference application}"/>
     </Application.Resources>
 </Application>

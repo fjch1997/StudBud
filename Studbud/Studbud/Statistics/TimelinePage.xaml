@@ -1,31 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:microcharts="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
+             xmlns:statistics="clr-namespace:Studbud.Statistics"
              x:Class="Studbud.Statistics.TimelinePage">
+    <ContentPage.BindingContext>
+        <statistics:TimelinePageViewModel ChartView="{Reference chartView}" TransactionStorageService="{StaticResource TransactionStorageService}"/>
+    </ContentPage.BindingContext>
     <ContentPage.Content>
         <Grid x:Name="LayoutRoot">
             <Grid.RowDefinitions>
                 <RowDefinition Height="100" />
-                <RowDefinition Height="*" />                
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Image Source="local.png" />
             <StackLayout>
                 <Label Text="Timeline"
                     VerticalOptions="StartAndExpand" 
                     HorizontalOptions="CenterAndExpand" 
-                    FontSize="40"   />
-                <Label Text="Income"
-                           VerticalOptions="StartAndExpand"
-                           HorizontalOptions="Start"
-                           FontSize="20"    />
-                <Label Text="Expense"
-                           VerticalOptions="StartAndExpand"
-                           HorizontalOptions="Start"
-                           FontSize="20"    />
-                <Label Text="Budget"
-                           VerticalOptions="StartAndExpand"
-                           HorizontalOptions="Start"
-                           FontSize="20"    />
+                    FontSize="40"/>
+                <microcharts:ChartView Grid.Row="1" x:Name="chartView" VerticalOptions="CenterAndExpand" HeightRequest="250" />
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label FontSize="Medium" VerticalTextAlignment="Center">Year</Label>
+                    <!--<Picker Grid.Column="1" ItemsSource="{Binding YearValues}" SelectedItem="{Binding SelectedYear}"/>-->
+                </Grid>
             </StackLayout>
         </Grid>
     </ContentPage.Content>

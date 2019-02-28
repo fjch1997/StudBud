@@ -23,5 +23,6 @@ namespace Studbud.Login
         Uri ProfilePictureUri { get; }
         void SerializeEncrypted(string fileName, object obj);
         T DeserializeEncrypted<T>(string fileName);
+        void SaveUserInfo();
     }
 }

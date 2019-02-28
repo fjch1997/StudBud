@@ -25,13 +25,13 @@ namespace Studbud.Login
         }
         public bool LoggedIn { get => loggedIn; set { loggedIn = value; OnPropertyChanged(); } }
         private bool loggedIn;
-        public string Token { get => token; set { token = value; OnPropertyChanged(); Task.Run(() => SaveUserInfo()); } }
+        public string Token { get => token; set { token = value; OnPropertyChanged(); } }
         private string token;
-        public string Username { get => username; set { username = value; OnPropertyChanged(); Task.Run(() => SaveUserInfo()); } }
+        public string Username { get => username; set { username = value; OnPropertyChanged(); } }
         private string username;
-        public string Nickname { get => nickname; set { nickname = value; OnPropertyChanged(); Task.Run(() => SaveUserInfo()); } }
+        public string Nickname { get => nickname; set { nickname = value; OnPropertyChanged(); } }
         private string nickname;
-        public decimal Budget { get => budget; set { budget = value; OnPropertyChanged(); Task.Run(() => SaveUserInfo()); } }
+        public decimal Budget { get => budget; set { budget = value; OnPropertyChanged(); } }
         private decimal budget;
         public Uri ProfilePictureUri { get; set; }
         private string password;
@@ -125,7 +125,7 @@ namespace Studbud.Login
         {
             return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "UserInfo");
         }
-        private void SaveUserInfo()
+        public void SaveUserInfo()
         {
             var userInfoFileName = GetUserInfoFileName(username);
             var info = new UserInfo()
