@@ -1,7 +1,10 @@
 ﻿using Studbud.Data;
 using Studbud.External;
+using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 
 namespace Studbud.Profile
 {
@@ -10,19 +13,17 @@ namespace Studbud.Profile
         public ITransactionStorageService TransactionStorageService { get; set; }
         public ProfileHomePageViewModel()
         {
-            EditBudgetCommand = new DelegateCommand(() =>
-            {
-
-            });
+            var startTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            var endTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month + 1, 1).AddDays(-1);
+            spent = TransactionStorageService.GetTransactions(startTime, endTime).Sum(t => t.Amount);
         }
-        
-        public decimal Savings { get => savings; set { savings = value; OnPropertyChanged(); } }
-        private decimal savings;
-        public decimal Budget { get => budget; set { budget = value; OnPropertyChanged(); } }
+
+        public decimal Savings => Budget - Spent;
+        public decimal Budget { get => budget; set { budget = value; OnPropertyChanged(); OnPropertyChanged(nameof(Savings)); } }
         private decimal budget;
         public decimal Spent { get => spent; set { spent = value; OnPropertyChanged(); } }
 
-        public DelegateCommand EditBudgetCommand { get; }
+   
 
         private decimal spent;
         public event PropertyChangedEventHandler PropertyChanged;

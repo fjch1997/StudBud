@@ -68,8 +68,8 @@ namespace Studbud.Statistics
                 .GroupBy(t => t.Catagory, t => t.Amount)
                 .Select(g => new Entry((float)g.Sum())
                 {
-                    Label = g.Key,
-                    Color = SKColor.Parse(GetColor(g.Key)),
+                    Label = g.Key ?? "",
+                    Color = SKColor.Parse(GetColor(g.Key ?? "")),
                     ValueLabel = g.Sum().ToString("C"),
                 }).ToArray();
             ChartView.Chart = new DonutChart() { Entries = entries };

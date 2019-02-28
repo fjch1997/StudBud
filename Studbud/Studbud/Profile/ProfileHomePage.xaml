@@ -48,11 +48,11 @@
                    Grid.Row="2"
                    TextColor="Black"></Label>
 
-            <Label Text="{Binding Budget, Converter={StaticResource CurrencyConverter}}"
+           <!-- <Label Text="{Binding Budget, Converter={StaticResource CurrencyConverter}}"
                    VerticalOptions="Center"
                    HorizontalOptions="CenterAndExpand" 
                    Grid.Row="3" Margin="0,-200,0,0"
-                   TextColor="Black"></Label>
+                   TextColor="Black"></Label> -->
 
             <Label Text="Spent"
                    VerticalOptions="Center"
@@ -62,21 +62,20 @@
 
             <Label Text="{Binding Spent, Converter={StaticResource CurrencyConverter}}"
                    VerticalOptions="Center"
-                   HorizontalOptions="EndAndExpand" 
+                   HorizontalOptions="EndAndExpand"  
+                   
                    Grid.Row="3" Margin="0,-200,0,0"
                    TextColor="Black"></Label>
+            
 
-            <Button 
-                Command="{Binding Budget }"
-                
-                
-                
-                HeightRequest="50" WidthRequest="50" Grid.Row="4" VerticalOptions="Center" Text="Budget"/>
-            
-            
-            
-            
-            
+
+
+           <!-- <Button 
+                Command="{Binding EditBudgetCommand}"
+                HeightRequest="50" WidthRequest="50" Grid.Row="4" VerticalOptions="Center" Text="Budget"/> -->
+
+            <Entry Placeholder="Budget" HorizontalTextAlignment="Center" Grid.Row="3" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" Margin="0,-200,0,0"  WidthRequest="100"  ></Entry>
+
             <Button HeightRequest="50" WidthRequest="50" Grid.Row="5" VerticalOptions="Center" Text="Log Out"/>
             <!-- Buttons -->
             
