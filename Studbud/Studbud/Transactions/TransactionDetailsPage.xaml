@@ -16,16 +16,16 @@
                    />
                 <Label Text="Payee:"  VerticalOptions="Start"
                     />
-                <Entry Text="Enter Here"></Entry>
+                <Entry Text=""></Entry>
                 <Label Text="Amount:" VerticalOptions="Start"
                    />
-                <Entry Text="Enter Here"></Entry>
+                <Entry Text=""></Entry>
                 <Label Text="Envelope:" VerticalOptions="Start"
                    />
-                <Entry Text="Enter Here"></Entry>
+                <Entry Text=""></Entry>
                 <Label Text="Date:" VerticalOptions="Start"
                    />
-                <Entry Text="Enter Here"></Entry>
+                <Entry Text=""></Entry>
             </StackLayout>
         </Grid>
     </ContentPage.Content>
