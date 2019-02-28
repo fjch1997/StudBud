@@ -11,59 +11,72 @@
         <profile:ProfileHomePageViewModel TransactionStorageService="{StaticResource TransactionStorageService}"/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <Grid>
+        <Grid Margin="5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Label FontSize ="Large" HorizontalOptions="Center" Text="{Binding Username, Source={StaticResource AuthenticationService}}"></Label>
+            <Label FontSize ="Large" Grid.Row="1" HorizontalOptions="Center" Text="{Binding Username, Source={StaticResource AuthenticationService}}"></Label>
             <!--Displays name of user-->
 
-            <Image Aspect="AspectFill" Source="https://pixabay.com/p-1577909/?no_redirect" Grid.Row="0" HorizontalOptions="Center"/>
-            <BoxView HeightRequest="1" BackgroundColor="SeaGreen"/>
+            <Image Aspect="AspectFill" Source="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png" Grid.Row="0" HorizontalOptions="Center"/>
+           
             <!--Shows a image of the profile icon)-->
 
 
             <Label Text="Savings"
                    VerticalOptions="Center"
                    HorizontalOptions="StartAndExpand" 
-                   Grid.Row="1"
-                   TextColor="AliceBlue" ></Label>
+                   Grid.Row="2"
+                   TextColor="Black" ></Label>
 
             <Label Text="{Binding Savings, Converter={StaticResource CurrencyConverter}}"
                    VerticalOptions="Center"
                    HorizontalOptions="StartAndExpand" 
-                   Grid.Row="2"
-                   TextColor= "Yellow" ></Label>
+                   Grid.Row="3" Margin="0,-200,0,0"
+                   
+                   TextColor= "Black" ></Label>
 
             <Label Text="Budget"
                    VerticalOptions="Center"
                    HorizontalOptions="Center" 
-                   Grid.Row="1"
-                   TextColor="AliceBlue"></Label>
+                   Grid.Row="2"
+                   TextColor="Black"></Label>
 
-            <Label Text="{Binding Budget, Converter={StaticResource CurrencyConverter}}"
+           <!-- <Label Text="{Binding Budget, Converter={StaticResource CurrencyConverter}}"
                    VerticalOptions="Center"
                    HorizontalOptions="CenterAndExpand" 
-                   Grid.Row="2"
-                   TextColor="Green"></Label>
+                   Grid.Row="3" Margin="0,-200,0,0"
+                   TextColor="Black"></Label> -->
 
             <Label Text="Spent"
                    VerticalOptions="Center"
                    HorizontalOptions="End"
-                   Grid.Row="1"
-                   TextColor="AliceBlue"></Label>
+                   Grid.Row="2"
+                   TextColor="Black"></Label>
 
             <Label Text="{Binding Spent, Converter={StaticResource CurrencyConverter}}"
                    VerticalOptions="Center"
-                   HorizontalOptions="EndAndExpand" 
-                   Grid.Row="2"
-                   TextColor="Red"></Label>
+                   HorizontalOptions="EndAndExpand"  
+                   
+                   Grid.Row="3" Margin="0,-200,0,0"
+                   TextColor="Black"></Label>
+            
 
-            <Button HeightRequest="50" WidthRequest="50" VerticalOptions="Center" Text="Calendar"/>
-            <Button HeightRequest="50" WidthRequest="50" VerticalOptions="Center" Text="Friends"/>
+
+
+           <!-- <Button 
+                Command="{Binding EditBudgetCommand}"
+                HeightRequest="50" WidthRequest="50" Grid.Row="4" VerticalOptions="Center" Text="Budget"/> -->
+
+            <Entry Placeholder="Budget" HorizontalTextAlignment="Center" Grid.Row="3" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" Margin="0,-200,0,0"  WidthRequest="100"  ></Entry>
+
+            <Button HeightRequest="50" WidthRequest="50" Grid.Row="5" VerticalOptions="Center" Text="Log Out"/>
             <!-- Buttons -->
             
         </Grid>
