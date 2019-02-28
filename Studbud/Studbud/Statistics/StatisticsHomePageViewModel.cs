@@ -4,11 +4,11 @@ using SkiaSharp;
 using Studbud.Data;
 using Studbud.External;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
-using Xamarin.Forms;
 
 namespace Studbud.Statistics
 {
@@ -48,16 +48,32 @@ namespace Studbud.Statistics
                 default:
                     throw new NotImplementedException();
             }
-            var colors = new string[] { "#CCCC00", "#660000", "#006600", "#0066FF", "#000000", "#330099", "#993399", "#009999", "#FF0000" };
+            var colors = new List<string> { "#CCCC00", "#660000", "#006600", "#0066FF", "#000000", "#330099", "#993399", "#009999", "#FF0000" };
+            var colorsUnique = new List<string> { "#CCCC00", "#660000", "#006600", "#0066FF", "#000000", "#330099", "#993399", "#009999", "#FF0000" };
+            string GetColor(string key)
+            {
+                if (colorsUnique.Count > 0)
+                {
+                    var index = unchecked((int)(uint)key.GetHashCode() % colorsUnique.Count);
+                    var color = colorsUnique[index];
+                    colorsUnique.RemoveAt(index);
+                    return color;
+                }
+                else
+                {
+                    return colors[unchecked((int)(uint)key.GetHashCode() % colors.Count)];
+                }
+            }
             var entries = TransactionStorageService.GetTransactions(startTime.ToUniversalTime(), DateTime.UtcNow)
                 .GroupBy(t => t.Catagory, t => t.Amount)
-                .Select(g => new Microcharts.Entry((float)g.Sum())
+                .Select(g => new Entry((float)g.Sum())
                 {
                     Label = g.Key + g.Sum().ToString("C"),
-                    Color = SKColor.Parse(colors[unchecked(((uint)g.Key.GetHashCode()) % colors.Length)]),
+                    Color = SKColor.Parse(GetColor(g.Key)),
                 });
             ChartView.Chart = new DonutChart() { Entries = entries };
         }
+        
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
