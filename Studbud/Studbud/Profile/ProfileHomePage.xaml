@@ -21,49 +21,50 @@
             <Label FontSize ="Large" HorizontalOptions="Center" Text="{Binding Username, Source={StaticResource AuthenticationService}}"></Label>
             <!--Displays name of user-->
 
-            <Image Source="Studbud.Android/Resources/drawable/ProfileIcon.png" Grid.Row="0" HorizontalOptions="Center"/>
+            <Image Aspect="AspectFill" Source="https://pixabay.com/p-1577909/?no_redirect" Grid.Row="0" HorizontalOptions="Center"/>
+            <BoxView HeightRequest="1" BackgroundColor="SeaGreen"/>
             <!--Shows a image of the profile icon)-->
 
 
             <Label Text="Savings"
                    VerticalOptions="Center"
                    HorizontalOptions="StartAndExpand" 
-                     
+                   Grid.Row="1"
                    TextColor="AliceBlue" ></Label>
 
             <Label Text="{Binding Savings, Converter={StaticResource CurrencyConverter}}"
                    VerticalOptions="Center"
                    HorizontalOptions="StartAndExpand" 
-                   
+                   Grid.Row="2"
                    TextColor= "Yellow" ></Label>
 
             <Label Text="Budget"
                    VerticalOptions="Center"
                    HorizontalOptions="Center" 
-                   
+                   Grid.Row="1"
                    TextColor="AliceBlue"></Label>
 
             <Label Text="{Binding Budget, Converter={StaticResource CurrencyConverter}}"
                    VerticalOptions="Center"
                    HorizontalOptions="CenterAndExpand" 
-                   
+                   Grid.Row="2"
                    TextColor="Green"></Label>
 
             <Label Text="Spent"
                    VerticalOptions="Center"
                    HorizontalOptions="End"
-                   
+                   Grid.Row="1"
                    TextColor="AliceBlue"></Label>
 
             <Label Text="{Binding Spent, Converter={StaticResource CurrencyConverter}}"
                    VerticalOptions="Center"
                    HorizontalOptions="EndAndExpand" 
-                   
+                   Grid.Row="2"
                    TextColor="Red"></Label>
 
-            <!-- <Button HeightRequest="50" WidthRequest="50" VerticalOptions="Center" Text="Calendar"/>
+            <Button HeightRequest="50" WidthRequest="50" VerticalOptions="Center" Text="Calendar"/>
             <Button HeightRequest="50" WidthRequest="50" VerticalOptions="Center" Text="Friends"/>
-            -->
+            <!-- Buttons -->
             
         </Grid>
 

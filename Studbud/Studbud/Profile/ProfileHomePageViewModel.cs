@@ -11,6 +11,7 @@ namespace Studbud.Profile
         {
             // TODO: Populate properties with data.
         }
+        
         public decimal Savings { get => savings; set { savings = value; OnPropertyChanged(); } }
         private decimal savings;
         public decimal Budget { get => budget; set { budget = value; OnPropertyChanged(); } }
@@ -19,5 +20,6 @@ namespace Studbud.Profile
         private decimal spent;
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    
     }
 }
