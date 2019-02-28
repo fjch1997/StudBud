@@ -8,5 +8,6 @@ namespace Studbud.Login
     {
         public string Username { get; set; }
         public string NickName { get; set; }
+        public decimal Budget { get; set; }
     }
 }

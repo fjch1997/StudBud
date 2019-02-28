@@ -25,12 +25,14 @@ namespace Studbud.Login
         }
         public bool LoggedIn { get => loggedIn; set { loggedIn = value; OnPropertyChanged(); } }
         private bool loggedIn;
-        public string Token { get => token; set { token = value; OnPropertyChanged(); } }
+        public string Token { get => token; set { token = value; OnPropertyChanged(); Task.Run(() => SaveUserInfo()); } }
         private string token;
-        public string Username { get => username; set { username = value; OnPropertyChanged(); } }
+        public string Username { get => username; set { username = value; OnPropertyChanged(); Task.Run(() => SaveUserInfo()); } }
         private string username;
-        public string Nickname { get => nickname; set { nickname = value; OnPropertyChanged(); } }
+        public string Nickname { get => nickname; set { nickname = value; OnPropertyChanged(); Task.Run(() => SaveUserInfo()); } }
         private string nickname;
+        public decimal Budget { get => budget; set { budget = value; OnPropertyChanged(); Task.Run(() => SaveUserInfo()); } }
+        private decimal budget;
         public Uri ProfilePictureUri { get; set; }
         private string password;
         public Task LoginAsync(string username, string password)
@@ -123,7 +125,17 @@ namespace Studbud.Login
         {
             return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "UserInfo");
         }
-
+        private void SaveUserInfo()
+        {
+            var userInfoFileName = GetUserInfoFileName(username);
+            var info = new UserInfo()
+            {
+                Username = username,
+                NickName = username,
+                Budget = Budget,
+            };
+            SerializeEncrypted(userInfoFileName, info);
+        }
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
