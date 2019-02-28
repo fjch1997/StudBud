@@ -21,8 +21,7 @@ namespace Studbud.Login
         Task RegisterAsync(string username, string password);
         string Username { get; }
         Uri ProfilePictureUri { get; }
-
-
-        /// TODO: other user data.
+        void SerializeEncrypted(string fileName, object obj);
+        T DeserializeEncrypted<T>(string fileName);
     }
 }

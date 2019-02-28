@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Studbud.Transactions
@@ -17,12 +18,22 @@ namespace Studbud.Transactions
         private ObservableCollection<Transaction> transactions;
         public ICommand RefreshTransactionsCommand { get; }
         public ICommand OpenAddTransactionsPageCommand { get; }
-
+        public Transaction SelectedItem { set { NavigationService.PushAsync(new NewTransactionPage(value)); } }
+        public bool Running { get => running; set { running = value; OnPropertyChanged(); } }
+        private bool running;
         public TransactionsHomePageViewModel()
         {
-            RefreshTransactionsCommand = new DelegateCommand(() =>
+            RefreshTransactionsCommand = new AsyncCommand(async () =>
             {
-                Transactions = new ObservableCollection<Transaction>(TransactionStorageService.GetTransactions(DateTime.Now.AddMonths(-3), DateTime.Now).OrderByDescending(t=>t.DateTime));
+                Running = true;
+                try
+                {
+                    Transactions = new ObservableCollection<Transaction>(await Task.Run(() => TransactionStorageService.GetTransactions(DateTime.UtcNow.AddMonths(-3), DateTime.UtcNow).OrderByDescending(t => t.DateTimeUtc)));
+                }
+                finally
+                {
+                    Running = false;
+                }
             });
             OpenAddTransactionsPageCommand = new DelegateCommand(() =>
             {

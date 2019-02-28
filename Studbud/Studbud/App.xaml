@@ -9,8 +9,8 @@
              x:Class="Studbud.App" x:Name="application">
     <Application.Resources>
         <http:HttpClient x:Key="HttpClient" x:Name="HttpClient"></http:HttpClient>
-        <data:TransactionStorageService x:Key="TransactionStorageService"/>
         <login:AuthenticationService x:Key="AuthenticationService" HttpClient="{StaticResource HttpClient}"/>
+        <data:TransactionStorageService x:Key="TransactionStorageService" AuthenticationService="{StaticResource AuthenticationService}"/>
         <data:DataSynchronizationService x:Key="DataSynchronizationService" HttpClient="{StaticResource HttpClient}" AuthenticationService="{StaticResource AuthenticationService}"/>
         <profile:PreferencesService x:Key="PreferencesService"/>
         <studbud:NavigationService x:Key="NavigationService" Application="{Reference application}"/>

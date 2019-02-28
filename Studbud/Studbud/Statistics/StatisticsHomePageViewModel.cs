@@ -48,29 +48,30 @@ namespace Studbud.Statistics
                 default:
                     throw new NotImplementedException();
             }
-            var colors = new List<string> { "#CCCC00", "#660000", "#006600", "#0066FF", "#000000", "#330099", "#993399", "#009999", "#FF0000" };
-            var colorsUnique = new List<string> { "#CCCC00", "#660000", "#006600", "#0066FF", "#000000", "#330099", "#993399", "#009999", "#FF0000" };
+            var colors = new List<string> { "#e6194b", "#3cb44b", "#ffe119", "#4363d8", "#f58231", "#911eb4", "#46f0f0", "#f032e6", "#bcf60c", "#fabebe", "#008080", "#e6beff", "#9a6324", "#fffac8", "#800000", "#aaffc3", "#808000", "#ffd8b1", "#000075", "#808080", "#ffffff", "#000000" };
+            var colorsUnique = new List<string> { "#e6194b", "#3cb44b", "#ffe119", "#4363d8", "#f58231", "#911eb4", "#46f0f0", "#f032e6", "#bcf60c", "#fabebe", "#008080", "#e6beff", "#9a6324", "#fffac8", "#800000", "#aaffc3", "#808000", "#ffd8b1", "#000075", "#808080", "#ffffff", "#000000" };
             string GetColor(string key)
             {
                 if (colorsUnique.Count > 0)
                 {
-                    var index = unchecked((int)(uint)key.GetHashCode() % colorsUnique.Count);
+                    var index = (int)unchecked((uint)key.GetHashCode() % colorsUnique.Count);
                     var color = colorsUnique[index];
                     colorsUnique.RemoveAt(index);
                     return color;
                 }
                 else
                 {
-                    return colors[unchecked((int)(uint)key.GetHashCode() % colors.Count)];
+                    return colors[(int)unchecked((uint)key.GetHashCode() % colors.Count)];
                 }
             }
             var entries = TransactionStorageService.GetTransactions(startTime.ToUniversalTime(), DateTime.UtcNow)
                 .GroupBy(t => t.Catagory, t => t.Amount)
                 .Select(g => new Entry((float)g.Sum())
                 {
-                    Label = g.Key + g.Sum().ToString("C"),
+                    Label = g.Key,
                     Color = SKColor.Parse(GetColor(g.Key)),
-                });
+                    ValueLabel = g.Sum().ToString("C"),
+                }).ToArray();
             ChartView.Chart = new DonutChart() { Entries = entries };
         }
         

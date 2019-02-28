@@ -1,22 +1,24 @@
 ﻿using Studbud.Data;
 using Studbud.External;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Windows.Input;
 
 namespace Studbud.Transactions
 {
-    public class NewTransactionsPageViewModel : INotifyPropertyChanged
+    public class NewTransactionPageViewModel : INotifyPropertyChanged
     {
         public ITransactionStorageService TransactionStorageService { get; set; }
         public INavigationService NavigationService { get; set; }
-        public NewTransactionsPageViewModel()
+        public NewTransactionPageViewModel()
         {
             SaveCommand = new DelegateCommand(() =>
             {
+                if (Transaction != null)
+                {
+                    TransactionStorageService.RemoveTransaction(Transaction);
+                }
                 TransactionStorageService.AddTransaction(new Transaction
                 {
                     Guid = Guid.NewGuid(),
@@ -24,9 +26,13 @@ namespace Studbud.Transactions
                     Catagory = catagory,
                     Name = name,
                     Merchant = merchant,
-                    DateTime = date.Date.Add(time).ToUniversalTime(),
+                    DateTimeUtc = date.Date.Add(time).ToUniversalTime(),
                 });
                 NavigationService.PopAsync();
+            });
+            DeleteCommand = new DelegateCommand(() =>
+            {
+                TransactionStorageService.RemoveTransaction(Transaction);
             });
         }
         public string Name { get => name; set { name = value; OnPropertyChanged(); } }
@@ -41,6 +47,9 @@ namespace Studbud.Transactions
         public TimeSpan Time { get => time; set { time = value; OnPropertyChanged(); } }
         private TimeSpan time = DateTime.Now.TimeOfDay;
         public ICommand SaveCommand { get; }
+        public ICommand DeleteCommand { get; }
+        public Transaction Transaction { get; internal set; }
+
         private string merchant;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         public event PropertyChangedEventHandler PropertyChanged;

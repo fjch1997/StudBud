@@ -3,6 +3,7 @@ using System;
 using System.ComponentModel;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -27,7 +28,8 @@ namespace Studbud.Login
         private string password;
         public string ErrorMessage { get => errorMessage; set { errorMessage = value; OnPropertyChanged(); } }
         private string errorMessage;
-
+        public bool Running { get => running; set { running = value; OnPropertyChanged(); } }
+        private bool running;
         public ICommand LoginCommand { get; set; }
         public ICommand RegisterCommand { get; set; }
 
@@ -37,12 +39,18 @@ namespace Studbud.Login
             {
                 try
                 {
-                    await AuthenticationService.LoginAsync(Username, Password);
+                    ErrorMessage = null;
+                    Running = true;
+                    await Task.Run(async () => await AuthenticationService.LoginAsync(Username, Password));
                     NavigationService.LoadMainPage();
                 }
                 catch (Exception ex)
                 {
                     ErrorMessage = ex.Message;
+                }
+                finally
+                {
+                    Running = false;
                 }
             });
             RegisterCommand = new DelegateCommand(() =>

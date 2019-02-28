@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using Studbud.Login;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,7 +11,7 @@ namespace Studbud.Data
     /// </summary>
     public class TransactionStorageService : ITransactionStorageService
     {
-        private JsonSerializerSettings serializerSettings = new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Auto };
+        public IAuthenticationService AuthenticationService { get; set; }
         public TransactionStorageService()
         {
             // Run a background task to refresh transactions from transaction providers.
@@ -24,18 +24,18 @@ namespace Studbud.Data
         }
         public void AddTransaction(Transaction transaction)
         {
-            var file = GetFileName(transaction.DateTime.Month, transaction.DateTime.Year);
+            var file = GetFileName(transaction.DateTimeUtc.Month, transaction.DateTimeUtc.Year);
             List<Transaction> transactions;
             if (File.Exists(file))
             {
-                transactions = JsonConvert.DeserializeObject<List<Transaction>>(File.ReadAllText(file), serializerSettings);
+                transactions = AuthenticationService.DeserializeEncrypted<List<Transaction>>(file);
             }
             else
             {
                 transactions = new List<Transaction>();
             }
             transactions.Add(transaction);
-            File.WriteAllText(file, JsonConvert.SerializeObject(transactions));
+            AuthenticationService.SerializeEncrypted(file, transactions);
         }
         public void AddTransactionProvider(ITransactionProvider transactionProvider)
         {
@@ -57,10 +57,11 @@ namespace Studbud.Data
                     List<Transaction> transactions;
                     if (File.Exists(file))
                     {
-                        transactions = JsonConvert.DeserializeObject<List<Transaction>>(File.ReadAllText(file), serializerSettings);
+                        transactions = AuthenticationService.DeserializeEncrypted<List<Transaction>>(file);
                         foreach (var item in transactions)
                         {
-                            yield return item;
+                            if (item.DateTimeUtc > startTime && item.DateTimeUtc < endTime)
+                                yield return item;
                         }
                     }
                 }
@@ -68,15 +69,15 @@ namespace Studbud.Data
         }
         public bool RemoveTransaction(Transaction transaction)
         {
-            var file = GetFileName(transaction.DateTime.Month, transaction.DateTime.Year);
+            var file = GetFileName(transaction.DateTimeUtc.Month, transaction.DateTimeUtc.Year);
             List<Transaction> transactions;
             if (File.Exists(file))
             {
-                transactions = JsonConvert.DeserializeObject<List<Transaction>>(File.ReadAllText(file), serializerSettings);
+                transactions = AuthenticationService.DeserializeEncrypted<List<Transaction>>(file);
                 var result = transactions.RemoveAll(t => t.Guid == transaction.Guid);
                 if (result == 0)
                     return false;
-                File.WriteAllText(file, JsonConvert.SerializeObject(transactions));
+                AuthenticationService.SerializeEncrypted(file, transactions);
                 return true;
             }
             else
@@ -90,7 +91,9 @@ namespace Studbud.Data
         }
         private string GetFileName(int month, int year)
         {
-            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), month + "-" + year + ".json");
+            var dir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), AuthenticationService.Username);
+            Directory.CreateDirectory(dir);
+            return Path.Combine(dir, month + "-" + year + ".json");
         }
     }
 }

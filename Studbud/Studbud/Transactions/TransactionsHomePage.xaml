@@ -15,7 +15,7 @@
         <ToolbarItem Name="Add" Command="{Binding OpenAddTransactionsPageCommand}"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <ListView ItemsSource="{Binding Transactions}">
+        <ListView ItemsSource="{Binding Transactions}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>

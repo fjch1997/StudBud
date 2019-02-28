@@ -2,18 +2,23 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:transactions="clr-namespace:Studbud.Transactions"
+             xmlns:converters="clr-namespace:Studbud.Converters"
              x:Class="Studbud.Transactions.NewTransactionPage">
+    <ContentPage.Resources>
+        <converters:NullableObjectToBooleanConverter x:Key="NullableObjectToBooleanConverter"/>
+    </ContentPage.Resources>
     <ContentPage.BindingContext>
-        <transactions:NewTransactionsPageViewModel NavigationService="{StaticResource NavigationService}" TransactionStorageService="{StaticResource TransactionStorageService}"/>
+        <transactions:NewTransactionPageViewModel NavigationService="{StaticResource NavigationService}" TransactionStorageService="{StaticResource TransactionStorageService}"/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <Grid x:Name="LayoutRoot">
+        <Grid x:Name="LayoutRoot" Margin="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <StackLayout>
-                <Label Text="Transactions"
+                <Label Text="Transaction Details"
                 VerticalOptions="StartAndExpand" 
                 HorizontalOptions="Center" 
                 FontSize="40"/>
@@ -30,7 +35,8 @@
                 <Label Text="Time" VerticalOptions="Start"/>
                 <TimePicker Time="{Binding Time}"></TimePicker>
             </StackLayout>
-            <Button Grid.Row="1" WidthRequest="220" HeightRequest="60" Text="Save" Command="{Binding SaveCommand, Mode=OneTime}"/>
+            <Button Grid.Row="1" WidthRequest="220" HeightRequest="50" Margin="0,5" Text="Delete" Command="{Binding DeleteCommand, Mode=OneTime}" IsVisible="{Binding Transaction, Converter={StaticResource NullableObjectToBooleanConverter}}"/>
+            <Button Grid.Row="2" WidthRequest="220" HeightRequest="50" Text="Save" Command="{Binding SaveCommand, Mode=OneTime}"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

@@ -5,7 +5,7 @@ namespace Studbud.Data
     public class Transaction
     {
         public string Name { get; set; }
-        public DateTime DateTime { get; set; }
+        public DateTime DateTimeUtc { get; set; }
         public string Catagory { get; set; }
         public string Merchant { get; set; }
         public decimal Amount { get; set; }
