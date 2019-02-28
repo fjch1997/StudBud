@@ -64,7 +64,7 @@
 
             <Button HeightRequest="50" WidthRequest="50" VerticalOptions="Center" Text="Calendar"/>
             <Button HeightRequest="50" WidthRequest="50" VerticalOptions="Center" Text="Friends"/>
-            
+            <!-- Buttons -->
             
         </Grid>
 
