@@ -64,7 +64,9 @@ namespace Studbud.Login
             {
                 Username = username,
                 NickName = username,
+                Budget = 500M,
             };
+            Budget = 500M;
             this.password = password;
             Directory.CreateDirectory(GetUserInfoDirectoryName());
             SerializeEncrypted(userInfoFileName, info);

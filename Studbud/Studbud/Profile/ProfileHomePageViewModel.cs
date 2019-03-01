@@ -5,7 +5,7 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Windows.Input;
+using System.Threading.Tasks;
 
 namespace Studbud.Profile
 {
@@ -24,7 +24,21 @@ namespace Studbud.Profile
         }
 
         public decimal Savings => Budget - Spent;
-        public decimal Budget { get => budget; set { budget = value; OnPropertyChanged(); OnPropertyChanged(nameof(Savings)); } }
+        private Task saveBudgetTask;
+        public decimal Budget
+        {
+            get => budget; set
+            {
+                budget = value; OnPropertyChanged();
+                OnPropertyChanged(nameof(Savings));
+                AuthenticationService.Budget = value;
+                saveBudgetTask = Task.Delay(2000);
+                saveBudgetTask.ContinueWith(t =>
+                {
+                    if (saveBudgetTask == t) AuthenticationService.SaveUserInfo();
+                });
+            }
+        }
         private decimal budget;
         public decimal Spent { get => spent; set { spent = value; OnPropertyChanged(); } }
         private decimal spent;
@@ -43,6 +57,7 @@ namespace Studbud.Profile
             var startTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month + 1, 1).AddDays(-1);
             var endTime = DateTime.UtcNow;
             Spent = TransactionStorageService.GetTransactions(startTime, endTime).Sum(t => t.Amount);
+            Budget = AuthenticationService.Budget;
         }
     }
 }

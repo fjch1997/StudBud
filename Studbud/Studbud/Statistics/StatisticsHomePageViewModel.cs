@@ -17,9 +17,10 @@ namespace Studbud.Statistics
         public INavigationService NavigationSerive { get; set; }
         public ITransactionStorageService TransactionStorageService { get; set; }
         public ICommand OpenTimelineCommand { get; set; }
-        public ChartView ChartView { get; set; }
+        public ChartView CatagoryChartView { get; set; }
+        public ChartView MerchantChartView { get; set; }
         public TimeRange[] TimeRangeValues { get; set; } = new TimeRange[] { TimeRange.Day, TimeRange.Week, TimeRange.Month, TimeRange.Year };
-        public TimeRange SelectedTimeRange { get => selectedTimeRange; set { selectedTimeRange = value; OnPropertyChanged(); InitializeChart(); } }
+        public TimeRange SelectedTimeRange { get => selectedTimeRange; set { selectedTimeRange = value; OnPropertyChanged(); InitializeCharts(); } }
         private TimeRange selectedTimeRange;
         public StatisticsHomePageViewModel()
         {
@@ -28,7 +29,7 @@ namespace Studbud.Statistics
                 NavigationSerive.PushAsync(new TimelinePage());
             });
         }
-        private void InitializeChart()
+        private void InitializeCharts()
         {
             DateTime startTime;
             switch (SelectedTimeRange)
@@ -48,8 +49,8 @@ namespace Studbud.Statistics
                 default:
                     throw new NotImplementedException();
             }
-            var colors = new List<string> { "#e6194b", "#3cb44b", "#ffe119", "#4363d8", "#f58231", "#911eb4", "#46f0f0", "#f032e6", "#bcf60c", "#fabebe", "#008080", "#e6beff", "#9a6324", "#fffac8", "#800000", "#aaffc3", "#808000", "#ffd8b1", "#000075", "#808080", "#ffffff", "#000000" };
-            var colorsUnique = new List<string> { "#e6194b", "#3cb44b", "#ffe119", "#4363d8", "#f58231", "#911eb4", "#46f0f0", "#f032e6", "#bcf60c", "#fabebe", "#008080", "#e6beff", "#9a6324", "#fffac8", "#800000", "#aaffc3", "#808000", "#ffd8b1", "#000075", "#808080", "#ffffff", "#000000" };
+            var colors = new List<string> { "#e6194b", "#3cb44b", "#c4ad13", "#4363d8", "#f58231", "#911eb4", "#f032e6", "#bcf60c", "#fabebe", "#008080", "#e6beff", "#9a6324", "#800000", "#aaffc3", "#808000", "#ffd8b1", "#000075", "#808080", "#ffffff", "#000000" };
+            var colorsUnique = new List<string> { "#e6194b", "#3cb44b", "#c4ad13", "#4363d8", "#f58231", "#911eb4", "#f032e6", "#bcf60c", "#fabebe", "#008080", "#e6beff", "#9a6324", "#800000", "#aaffc3", "#808000", "#ffd8b1", "#000075", "#808080", "#ffffff", "#000000" };
             string GetColor(string key)
             {
                 if (colorsUnique.Count > 0)
@@ -64,30 +65,30 @@ namespace Studbud.Statistics
                     return colors[(int)unchecked((uint)key.GetHashCode() % colors.Count)];
                 }
             }
-            var entries = TransactionStorageService.GetTransactions(startTime.ToUniversalTime(), DateTime.UtcNow)
-                .GroupBy(t => t.Catagory, t => t.Amount)
-                .Select(g => new Entry((float)g.Sum())
-                {
-                    Label = g.Key ?? "",
-                    Color = SKColor.Parse(GetColor(g.Key ?? "")),
-                    ValueLabel = g.Sum().ToString("C"),
-                }).ToArray();
-            ChartView.Chart = new DonutChart() { Entries = entries };
-        }
-        
+            Func<IGrouping<string, decimal>, Entry> getEntry =
+                 g => new Entry((float)g.Sum())
+                 {
+                     Label = g.Key ?? "",
+                     Color = SKColor.Parse(GetColor(g.Key ?? "")),
+                     ValueLabel = g.Sum().ToString("C"),
+                 };
 
+            var transactions = TransactionStorageService.GetTransactions(startTime.ToUniversalTime(), DateTime.UtcNow);
+            var entries = transactions.GroupBy(t => t.Catagory, t => t.Amount).Select(getEntry).ToArray();
+            CatagoryChartView.Chart = new DonutChart { Entries = entries };
+            entries = transactions.GroupBy(t => t.Merchant, t => t.Amount).Select(getEntry).ToArray();
+            MerchantChartView.Chart = new DonutChart { Entries = entries };
+        }
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
         public void BeginInit()
         {
         }
-
         public void EndInit()
         {
             if (NavigationSerive == null) throw new ArgumentNullException(nameof(NavigationSerive));
-            if (ChartView == null) throw new ArgumentNullException(nameof(ChartView));
-            InitializeChart();
+            if (CatagoryChartView == null) throw new ArgumentNullException(nameof(CatagoryChartView));
+            InitializeCharts();
         }
     }
     public enum TimeRange
