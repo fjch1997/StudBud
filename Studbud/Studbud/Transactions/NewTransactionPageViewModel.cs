@@ -3,6 +3,7 @@ using Studbud.External;
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Studbud.Transactions
@@ -13,7 +14,7 @@ namespace Studbud.Transactions
         public INavigationService NavigationService { get; set; }
         public NewTransactionPageViewModel()
         {
-            SaveCommand = new DelegateCommand(() =>
+            SaveCommand = new AsyncCommand(async () =>
             {
                 if (Name == "AddTestData")
                 {
@@ -46,7 +47,7 @@ namespace Studbud.Transactions
                 {
                     TransactionStorageService.RemoveTransaction(Transaction);
                 }
-                TransactionStorageService.AddTransaction(new Transaction
+                await Task.Run(() => TransactionStorageService.AddTransaction(new Transaction
                 {
                     Guid = Guid.NewGuid(),
                     Amount = amount,
@@ -54,12 +55,13 @@ namespace Studbud.Transactions
                     Name = name,
                     Merchant = merchant,
                     DateTimeUtc = date.Date.Add(time).ToUniversalTime(),
-                });
-                NavigationService.PopAsync();
+                }));
+                await NavigationService.PopAsync();
             });
-            DeleteCommand = new DelegateCommand(() =>
+            DeleteCommand = new AsyncCommand(async () =>
             {
-                TransactionStorageService.RemoveTransaction(Transaction);
+                await Task.Run(() => TransactionStorageService.RemoveTransaction(Transaction));
+                await NavigationService.PopAsync();
             });
         }
         public string Name { get => name; set { name = value; OnPropertyChanged(); } }
@@ -73,9 +75,10 @@ namespace Studbud.Transactions
         private DateTime date = DateTime.Now.Date;
         public TimeSpan Time { get => time; set { time = value; OnPropertyChanged(); } }
         private TimeSpan time = DateTime.Now.TimeOfDay;
+        public Transaction Transaction { get => transaction; set { transaction = value; OnPropertyChanged(); } }
+        private Transaction transaction;
         public ICommand SaveCommand { get; }
         public ICommand DeleteCommand { get; }
-        public Transaction Transaction { get; internal set; }
 
         private string merchant;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

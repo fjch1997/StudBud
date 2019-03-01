@@ -47,6 +47,8 @@ namespace Studbud.Login
                 var info = DeserializeEncrypted<UserInfo>(userInfoFileName);
                 Username = info.Username;
                 Nickname = info.NickName;
+                Budget = info.Budget;
+                LoggedIn = true;
             }
             catch (Exception)
             {

@@ -29,6 +29,7 @@ namespace Studbud.Profile
         {
             get => budget; set
             {
+                if (value == 0) return;
                 budget = value; OnPropertyChanged();
                 OnPropertyChanged(nameof(Savings));
                 AuthenticationService.Budget = value;

@@ -18,7 +18,7 @@ namespace Studbud.Transactions
         private ObservableCollection<Transaction> transactions;
         public ICommand RefreshTransactionsCommand { get; }
         public ICommand OpenAddTransactionsPageCommand { get; }
-        public Transaction SelectedItem { set { NavigationService.PushAsync(new NewTransactionPage(value)); } }
+        public Transaction SelectedItem { set { if (value != null) NavigationService.PushAsync(new NewTransactionPage(value)); } }
         public bool Running { get => running; set { running = value; OnPropertyChanged(); } }
         private bool running;
         public TransactionsHomePageViewModel()

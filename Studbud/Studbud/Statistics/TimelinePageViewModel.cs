@@ -40,7 +40,7 @@ namespace Studbud.Statistics
                     Color = SKColor.Parse(colors.Pop()),
                     Label = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(t.month),
                 }).ToArray();
-            ChartView.Chart = new PointChart() { Entries = entries, LabelTextSize = 10, };
+            ChartView.Chart = new LineChart() { Entries = entries, LabelTextSize = 10, };
         }
         public void EndInit()
         {

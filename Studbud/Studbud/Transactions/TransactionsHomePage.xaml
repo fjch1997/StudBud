@@ -7,6 +7,7 @@
              x:Class="Studbud.Transactions.TransactionsHomePage">
     <ContentPage.Resources>
         <converters:CurrencyConverter x:Key="CurrencyConverter"/>
+        <converters:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
     </ContentPage.Resources>
     <ContentPage.BindingContext>
         <transactions:TransactionsHomePageViewModel TransactionStorageService="{StaticResource TransactionStorageService}" NavigationService="{StaticResource NavigationService}"/>
@@ -15,28 +16,31 @@
         <ToolbarItem Name="Add" Command="{Binding OpenAddTransactionsPageCommand}"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <ListView ItemsSource="{Binding Transactions}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <ViewCell.View>
-                            <Grid HeightRequest="120" Margin="5">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="3*"/>
-                                    <RowDefinition Height="2*"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <Label Text="{Binding Name}"/>
-                                <Label Grid.Row="1" Text="{Binding Amount, Converter={StaticResource CurrencyConverter}}" FontSize="Micro"/>
-                                <Label Text="{Binding Catagory}" VerticalTextAlignment="Center" VerticalOptions="Fill" HorizontalTextAlignment="End"/>
-                            </Grid>
-                        </ViewCell.View>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <StackLayout>
+            <ListView ItemsSource="{Binding Transactions}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}" IsVisible="{Binding Running, Converter={StaticResource InverseBooleanConverter}}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <Grid HeightRequest="120" Margin="5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="3*"/>
+                                        <RowDefinition Height="2*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Text="{Binding Name}"/>
+                                    <Label Grid.Row="1" Text="{Binding Amount, Converter={StaticResource CurrencyConverter}}" FontSize="Micro"/>
+                                    <Label Text="{Binding Catagory}" VerticalTextAlignment="Center" VerticalOptions="Fill" HorizontalTextAlignment="End"/>
+                                </Grid>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <ActivityIndicator Color="BlueViolet" IsRunning="{Binding Running}" IsVisible="{Binding Running, Converter={StaticResource InverseBooleanConverter}}"/>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>
