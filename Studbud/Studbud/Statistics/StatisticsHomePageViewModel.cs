@@ -21,7 +21,7 @@ namespace Studbud.Statistics
         public ChartView MerchantChartView { get; set; }
         public TimeRange[] TimeRangeValues { get; set; } = new TimeRange[] { TimeRange.Day, TimeRange.Week, TimeRange.Month, TimeRange.Year };
         public TimeRange SelectedTimeRange { get => selectedTimeRange; set { selectedTimeRange = value; OnPropertyChanged(); InitializeCharts(); } }
-        private TimeRange selectedTimeRange;
+        private TimeRange selectedTimeRange = TimeRange.Week;
         public StatisticsHomePageViewModel()
         {
             OpenTimelineCommand = new DelegateCommand(() =>
