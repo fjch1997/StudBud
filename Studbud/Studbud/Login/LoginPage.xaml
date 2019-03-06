@@ -18,10 +18,12 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Label Grid.ColumnSpan="2" FontSize="30">Sign in</Label>
+            <Image Aspect="AspectFill"  Source="StudBud.png"></Image>
             <Grid Grid.Row="1" Grid.ColumnSpan="2" VerticalOptions="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="7*"/>
+                   
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
