@@ -44,7 +44,7 @@
                    
                    TextColor= "Black" ></Label>
 
-            <Label Text="Budget"
+            <Label Text="Budget (This Month)"
                    VerticalOptions="Center"
                    HorizontalOptions="Center" 
                    Grid.Row="2"

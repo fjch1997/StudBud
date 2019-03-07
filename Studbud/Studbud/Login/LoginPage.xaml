@@ -19,7 +19,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Label Grid.ColumnSpan="2" FontSize="30">Sign in</Label>
-            <Image Grid.Row="1" Grid.ColumnSpan="2" Aspect="AspectFill" Margin="50,0" Source="StudBud.png"></Image>
+            <Image Grid.Row="1" Grid.ColumnSpan="2" Aspect="AspectFill" Margin="50,0" Source="https://home.lloyd97.com/files/StudBud.png"></Image>
             <Grid Grid.Row="2" Grid.ColumnSpan="2" VerticalOptions="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*"/>

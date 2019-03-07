@@ -55,7 +55,7 @@ namespace Studbud.Profile
 
         public void EndInit()
         {
-            var startTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month + 1, 1).AddDays(-1);
+            var startTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddDays(-1);
             var endTime = DateTime.UtcNow;
             Spent = TransactionStorageService.GetTransactions(startTime, endTime).Sum(t => t.Amount);
             Budget = AuthenticationService.Budget;
